@@ -1,11 +1,11 @@
 <?php
 /*
  * Plugin Name: Export One Post
- * Plugin URI: https://github.com/trepmal/export-one-post
+ * Plugin URI: https://github.com/drawbackwards/export-one-post
  * Description: Export single posts and pages from the edit screen.
  * Version: 1.0
- * Author: Kailey Lampert
- * Author URI: kaileylampert.com
+ * Author: Drawbackwards
+ * Author URI: drawbackwards.com
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * TextDomain: export-one-post
