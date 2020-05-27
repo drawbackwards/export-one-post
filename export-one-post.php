@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Export One Post
  * Plugin URI: https://github.com/trepmal/export-one-post
- * Description:
+ * Description: Export single posts and pages from the edit screen.
  * Version: 1.0
  * Author: Kailey Lampert
  * Author URI: kaileylampert.com
