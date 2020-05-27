@@ -28,6 +28,8 @@ class Export_One_Post {
 			add_action( 'post_submitbox_misc_actions', array( $this, 'post_submitbox_misc_actions' ) );
 			add_filter( 'export_args',                 array( $this, 'export_args' ) );
 			add_filter( 'query',                       array( $this, 'query' ) );
+			add_filter( 'post_row_actions',            array( $this, 'post_row_export_link'), 10, 2);
+			add_filter( 'page_row_actions',            array( $this, 'post_row_export_link'), 10, 2);
 		}
 	}
 	/**
@@ -50,17 +52,41 @@ class Export_One_Post {
 		}
 		</style>
 		<div class="misc-pub-section export-one-post">
-			<?php
-				$export_url = add_query_arg( array(
-					'download'      => '',
-					'export_single' => get_the_ID(),
-					'_wpnonce' => wp_create_nonce( 'export_single' ),
-				), admin_url( 'export.php' ) );
-			?>
-			<a href="<?php echo esc_url( $export_url ); ?>">
+			<a href="<?php echo esc_url( $this->get_export_url() ); ?>">
 				<?php esc_html_e( 'Export XML', 'export-one-post' ); ?>
 			</a>
 		</div><?php
+	}
+
+	/**
+	 * Insert export link into post/page rows
+	 * 
+	 */
+	function post_row_export_link($actions, $post) {
+		if ( current_user_can( 'edit_posts' ) ) {
+			$actions['export'] = '<a href="' . $this->get_export_url($post->ID) . '">' . esc_html__( 'Export XML', 'export-one-post' ) . '</a>';
+		}
+
+		return $actions;
+	}
+
+	/**
+	 * Generate export url
+	 *
+	 */
+	function get_export_url( $post_id = null ) {
+
+		if ( $post_id === null ) {
+			$post_id = get_the_ID();
+		}
+
+		$export_url = add_query_arg( array(
+			'download'      => '',
+			'export_single' => $post_id,
+			'_wpnonce' => wp_create_nonce( 'export_single' ),
+		), admin_url( 'export.php' ) );
+
+		return $export_url;
 	}
 
 	/**
